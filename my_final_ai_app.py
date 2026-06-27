@@ -45,7 +45,7 @@ class NexusEngine:
         self.initialize_client()
 
     def initialize_client(self):
-        api_key_env = os.environ.get("AQ.Ab8RN6LRoKP5KG1zIR0QhCv7zV02C7JkVhS-42deT7_oV0zfKA")
+        api_key_env = os.environ.get("NEXUS_API_KEY")
         if not api_key_env:
             api_key_env = "YOUR_FALLBACK_SECURE_KEY_IF_NEEDED"
 
