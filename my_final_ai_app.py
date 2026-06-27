@@ -23,7 +23,7 @@ def load_memory():
     return {
         "current_user": None, 
         "user_role": "Standard User", 
-        "developer_upi": "sharmayuvi@oksbi", # <-- APNI REAL GPAY ID YAHAN EDIT KAR SAKTE HO
+        "developer_upi": "sunita2568sh@oksbi", # <-- APNI REAL GPAY ID YAHAN EDIT KAR SAKTE HO
         "chats": [[]],
         "active_subscribers": {} 
     }
