@@ -23,7 +23,7 @@ def load_memory():
     return {
         "current_user": None, 
         "user_role": "Standard User", 
-        "developer_upi": "sharmayuvi@oksbi",
+        "developer_upi": "sunita2568sh@oksbi",
         "chats": [[]],
         "active_subscribers": {} 
     }
