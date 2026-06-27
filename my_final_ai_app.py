@@ -23,7 +23,7 @@ def load_memory():
     return {
         "current_user": None, 
         "user_role": "Standard User", 
-        "developer_upi": "sunita2568sh@oksbi", # <-- APNI REAL GPAY ID YAHAN EDIT KAR SAKTE HO
+        "developer_upi": "sharmayuvi@oksbi",
         "chats": [[]],
         "active_subscribers": {} 
     }
@@ -45,12 +45,8 @@ class NexusEngine:
         self.initialize_client()
 
     def initialize_client(self):
-        # SECURE FETCH: Fetching API Key from System Environment Variables to avoid GitHub Leaks
         api_key_env = os.environ.get("NEXUS_API_KEY")
-        
-        # Fallback Key if environment variable is not defined on local device
         if not api_key_env:
-            # Token placeholder to bypass hardcoded text filters
             api_key_env = "YOUR_FALLBACK_SECURE_KEY_IF_NEEDED"
 
         try:
@@ -128,8 +124,9 @@ class NexusStudioApp(ctk.CTk):
             self.build_main_workspace()
 
     def show_login_screen(self):
-        self.login_frame = ctk.CTkFrame(self, fg_color="#141416", border_color="#232329", border_width=1, corner_radius=20)
-        self.login_frame.place(relx=0.5, rely=0.5, anchor="center", width=450, height=520)
+        # FIX: Added width and height arguments directly to the constructor here
+        self.login_frame = ctk.CTkFrame(self, width=450, height=520, fg_color="#141416", border_color="#232329", border_width=1, corner_radius=20)
+        self.login_frame.place(relx=0.5, rely=0.5, anchor="center")
 
         title = ctk.CTkLabel(self.login_frame, text="🛡️ Nexus Multi-Tier Network", font=ctk.CTkFont(size=22, weight="bold"))
         title.pack(pady=(35, 5))
@@ -250,7 +247,6 @@ class NexusStudioApp(ctk.CTk):
         self.update_chat_display(f"👤 USER:\n{prompt}\n\n")
         p_lower = prompt.lower()
 
-        # VIDEO GATEKEEPER
         if "video" in p_lower or "render" in p_lower or "cinematic" in p_lower:
             if "Developer" not in db["user_role"] and "Verified" not in db["user_role"]:
                 self.show_subscription_paywall()
@@ -261,7 +257,6 @@ class NexusStudioApp(ctk.CTk):
                 save_memory(db)
                 return
 
-        # IMAGE GENERATION
         elif "image" in p_lower or "draw" in p_lower or "photo" in p_lower:
             self.update_chat_display("🤖 NEXUS AI:\n⏳ Connecting Graphic Arrays... Rendering high-res pixel grid...\n\n")
             self.update()
@@ -275,7 +270,6 @@ class NexusStudioApp(ctk.CTk):
                 self.update_chat_display("❌ Engine Security/Quota Error: Unable to complete image rendering. Ensure your environment token is valid.\n\n" + "─"*50 + "\n\n")
             return
 
-        # SONG GENERATION
         elif "song" in p_lower or "music" in p_lower:
             self.update_chat_display("🤖 NEXUS AI:\n🎵 Orchestrating rhythm synthesizer components...\n\n")
             self.update()
@@ -295,7 +289,6 @@ class NexusStudioApp(ctk.CTk):
                 self.update_chat_display(f"❌ Audio Core Error: {e}\n\n" + "─"*50 + "\n\n")
             return
 
-        # STANDARD TEXT ADVANCED RESPONSE
         else:
             self.update()
             ai_reply = ai.get_text_response(prompt)
@@ -320,7 +313,6 @@ class NexusStudioApp(ctk.CTk):
         cards_frame = ctk.CTkFrame(paywall, fg_color="transparent")
         cards_frame.pack(fill="x", padx=30)
 
-        # PLAN 1: STANDARD CREATOR (₹399 BUDGET TIER)
         card1 = ctk.CTkFrame(cards_frame, fg_color="#1c1c1f", border_color="#3f3f46", border_width=1, corner_radius=12, width=340, height=240)
         card1.pack(side="left", expand=True, padx=10, fill="y")
         card1.pack_propagate(False)
@@ -330,7 +322,6 @@ class NexusStudioApp(ctk.CTk):
         ctk.CTkLabel(card1, text=card1_price, font=ctk.CTkFont(size=22, weight="bold")).pack(pady=2)
         ctk.CTkLabel(card1, text="Best optimized for casual & regular content creators.\n\n✔ 30 High-Speed Video Renders / Month\n✔ Standard Cloud Node Speed\n✔ Direct GPay Transaction Settlement", font=ctk.CTkFont(size=11), text_color="#a1a1aa", justify="left").pack(pady=10)
 
-        # PLAN 2: ELITE ENTERPRISE (₹1,000 STUDIO TIER)
         card2 = ctk.CTkFrame(cards_frame, fg_color="#152019", border_color="#10b981", border_width=1, corner_radius=12, width=340, height=240)
         card2.pack(side="right", expand=True, padx=10, fill="y")
         card2.pack_propagate(False)
@@ -340,7 +331,6 @@ class NexusStudioApp(ctk.CTk):
         ctk.CTkLabel(card2, text=card2_price, font=ctk.CTkFont(size=22, weight="bold"), text_color="#10b981").pack(pady=2)
         ctk.CTkLabel(card2, text="Tailored for premium multi-modal generation workloads.\n\n✔ Unlimited Heavy Cinematic Video Renders\n✔ Priority Alpha GPU Dedicated Pipelines\n✔ Instant Activation and Lifetime Support", font=ctk.CTkFont(size=11), text_color="#a1a1aa", justify="left").pack(pady=10)
 
-        # GATEWAY FIELDS AT BOTTOM
         bottom_frame = ctk.CTkFrame(paywall, fg_color="#1c1c1f", corner_radius=10, height=130)
         bottom_frame.pack(fill="x", padx=40, pady=25)
 
